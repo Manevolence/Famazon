@@ -17,7 +17,7 @@ connection.connect(function(err) {
 
 function start() {
   connection.query("SELECT * FROM products", function(err, res) {
-    if (err) throw err;
+    if (err) throw (err);
   inquirer.prompt ([
     {
       type: "list", 
@@ -39,7 +39,6 @@ function start() {
             chosenItem = res[i];
           }
         }
-      // console.log(chosenItem.stock_quantity);
       function buyQuantity() {
         inquirer.prompt ([
           {
@@ -56,8 +55,8 @@ function start() {
           else if(chosenItem.stock_quantity > userAnswer.quantity){
             var newStock = parseInt(chosenItem.stock_quantity - userAnswer.quantity);
             console.log("yeah we have enough");
-            console.log(newStock);
-            console.log(chosenItem.product_name);
+            // console.log(newStock);
+            // console.log(chosenItem.product_name);
             connection.query("UPDATE products SET ? WHERE ?", 
             [
             {
