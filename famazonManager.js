@@ -22,7 +22,7 @@ function start() {
             type: "list",
             name: "managerMenu",
             message: "What would you like to do Mr. Manager?",
-            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+            choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit Famazon Manager Portal"]
         }
     ])
     .then(function(userAnswers){
@@ -132,12 +132,21 @@ function start() {
                     userAnswer.addInventory_department,
 
                     parseInt(userAnswer.addInventory_stock)
-
                 ];
-                connection.query("INSERT INTO products (product_name, price) VALUES (?)", [userAdd]);
-            console.log("Successfully added" + userAnswer.addInventory_name)
-            start();
+                connection.query("INSERT INTO products (product_name, price, department_name, stock_quantity) VALUES (?)", [userAdd], function(err, res) {
+                    if (err) throw (err);
+                    console.log("Successfully added " + userAnswer.addInventory_name)
+                    start();
+                });
             }) 
         }
+        else if (userAnswers.managerMenu === "Exit Famazon Manager Portal") {
+            userEnd();
+        }
     });
+}
+
+function userEnd() {
+    connection.end()
+    console.log("Thank you for using the Famazon Manager Portal")
 }

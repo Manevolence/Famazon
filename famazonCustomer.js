@@ -54,9 +54,8 @@ function start() {
           }
           else if(chosenItem.stock_quantity > userAnswer.quantity){
             var newStock = parseInt(chosenItem.stock_quantity - userAnswer.quantity);
-            console.log("yeah we have enough");
-            // console.log(newStock);
-            // console.log(chosenItem.product_name);
+            console.log("Looks like we have enough in stock!");
+            console.log("Purchasing...");
             connection.query("UPDATE products SET ? WHERE ?", 
             [
             {
@@ -68,7 +67,7 @@ function start() {
             ],
             function(err,res){
               if (err) throw (err);
-              console.log("Stock successfully updated!");
+              console.log("Inventory successfully updated! Congrats on your purchase!");
             })
           }
           
